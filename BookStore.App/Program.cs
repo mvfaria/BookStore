@@ -15,10 +15,8 @@ namespace BookStore.App
             var calculator = new OrderCalculator(order);
             var crimeDiscount = new CategoryCrimeDiscount();
 
-            Console.WriteLine($"Order Total Cost Before Tax: {calculator.CalculateOrderTotal().ToString("C")}");
-            Console.WriteLine($"Order Total Cost Before Tax With Discount: {calculator.CalculateOrderTotal(discount: crimeDiscount).ToString("C")}");
-            Console.WriteLine($"Order Total Cost After Tax: {calculator.CalculateOrderTotal(GST).ToString("C")}");
-            Console.WriteLine($"Order Total Cost After Tax With Discount: {calculator.CalculateOrderTotal(GST, crimeDiscount).ToString("C")}");
+            Console.WriteLine($"Order Total Cost Before Tax: {calculator.CalculateOrderTotal(discount: crimeDiscount).ToString("C")}");
+            Console.WriteLine($"Order Total Cost After Tax: {calculator.CalculateOrderTotal(GST, crimeDiscount).ToString("C")}");
         }
     }
 }
