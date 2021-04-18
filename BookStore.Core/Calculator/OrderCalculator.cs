@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookStore.Core.Domain;
+using System;
 using System.Linq;
 
 namespace BookStore.Core.Calculator
@@ -15,9 +16,12 @@ namespace BookStore.Core.Calculator
             _order = order;
         }
 
-        public decimal CalculateOrderTotal(decimal tax = 1)
+        public decimal CalculateOrderTotal(decimal tax = 0, IDiscount discount = null)
         {
-            return _order.Books.Sum(b => b.TotalCost) * tax;
+            var total = (discount != null ? discount.Apply(_order) : _order)
+                .Books.Sum(b => b.TotalCost);
+
+            return total + (total * tax);
         }
     }
 }

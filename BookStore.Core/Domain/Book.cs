@@ -1,4 +1,4 @@
-﻿namespace BookStore.Core.Calculator
+﻿namespace BookStore.Core.Domain
 {
     public class Book
     {

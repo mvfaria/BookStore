@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BookStore.Core.Calculator
+namespace BookStore.Core.Domain
 {
     public class Order
     {
