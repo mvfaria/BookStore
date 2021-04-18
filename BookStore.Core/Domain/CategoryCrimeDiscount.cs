@@ -4,7 +4,7 @@ namespace BookStore.Core.Domain
 {
     public class CategoryCrimeDiscount : IDiscount
     {
-        private const decimal _discount = 0.03m;
+        private const decimal _discount = 0.05m;
 
         public Order Apply(Order order) => new Order
         {
