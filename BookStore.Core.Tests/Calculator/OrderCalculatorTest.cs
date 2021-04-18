@@ -1,16 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using BookStore.Core.Calculator;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace BookStore.Core.Calculator
+namespace BookStore.Core.Tests.Calculator
 {
     public class OrderCalculatorTest
     {
-        [Fact]
-        public void ShouldReturnOrderTotal()
+        private readonly Order _order;
+        private readonly OrderCalculator _calculator;
+
+        public OrderCalculatorTest()
         {
-            // Arrange
-            var order = new Order
+            _order = new Order
             {
                 Books = new List<Book>
                 {
@@ -29,13 +32,33 @@ namespace BookStore.Core.Calculator
                 }
             };
 
-            var calculator = new OrderCalculator(order);
+            _calculator = new OrderCalculator(_order);
+        }
 
-            // Act
-            var total = calculator.CalculateOrderTotal();
+        [Fact]
+        public void ShouldReturnOrderTotalBeforeTax()
+        {
+            var total = _calculator.CalculateOrderTotal();
 
-            // Assert
-            Assert.Equal(order.Books.Sum(b => b.TotalCost), total);
+            Assert.Equal(_order.Books.Sum(b => b.TotalCost), total);
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionIfOrderIsNull()
+        {
+            var exception = Assert.Throws<ArgumentNullException>(() => new OrderCalculator(null));
+
+            Assert.Equal("order", exception.ParamName);
+        }
+
+        [Fact]
+        public void ShouldReturnOrderTotalAfterTax()
+        {
+            var tax = 0.1m;
+
+            var total = _calculator.CalculateOrderTotal(tax);
+
+            Assert.Equal(_order.Books.Sum(b => b.TotalCost) * tax, total);
         }
     }
 }
